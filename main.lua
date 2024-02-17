@@ -721,7 +721,54 @@ return ____exports
 ["main"] = function(...) 
 --[[ Generated with https://github.com/TypeScriptToLua/TypeScriptToLua ]]
 local ____exports = {}
-print("Hello World!")
+local digPlane, digLine
+function digPlane(self, width, length)
+    do
+        local i = 0
+        while i < width do
+            if i == 0 then
+            elseif i % 2 == 0 then
+                turtle.turnLeft()
+                turtle.dig()
+                turtle.turnLeft()
+            else
+                turtle.turnRight()
+                turtle.dig()
+                turtle.turnRight()
+            end
+            digLine(nil, length - 1)
+            i = i + 1
+        end
+    end
+end
+function digLine(self, length)
+    do
+        local i = 0
+        while i < length - 1 do
+            turtle.dig()
+            turtle.forward()
+            i = i + 1
+        end
+    end
+end
+local function digCuboid(self, width, length, height)
+    do
+        local i = 0
+        while i < height do
+            digPlane(nil, width, length)
+            if width % 2 == 0 then
+                turtle.turnRight()
+            else
+                turtle.turnLeft()
+                turtle.turnLeft()
+            end
+            i = i + 1
+        end
+    end
+end
+____exports.digCuboid = digCuboid
+____exports.digPlane = digPlane
+____exports.digLine = digLine
 return ____exports
  end,
 }
